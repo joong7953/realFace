@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<% include ./header.ejs %>
+</head>
+<body onload="noBack();" onpageshow="if(event.persisted) noBack();" onunload="">
+	<% if(questionType == "choice"){%>
+    	<% include ./choice.ejs %>
+    <% }else if(questionType == "ox"){%>
+    	<% include ./ox.ejs %>
+    <% }else if(questionType == "short"){%>
+    	<% include ./short.ejs %>
+    <% }else{ %>
+    	<% include ./loading.ejs %>
+    <% } %>
+</body>
+</html>

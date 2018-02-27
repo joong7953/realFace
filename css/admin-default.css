@@ -1,0 +1,111 @@
+@charset "utf-8";
+/* CSS Document */
+
+#loading_page {position:fixed; top:0px; bottom:0px;width:100%; height:100%; background:#fff; z-index:10000;}
+#loading_page p {position:absolute; top:50%; left:50%; margin:-30px 0 0 -30px; font-size:48px; z-index:auto;}
+#wrap {min-width: 1200px; background: #eee;}
+header {position: relative;  padding:10px 0; border-bottom:1px solid #d7d7d7; background: #fff;}
+header:after {content:''; display:block; clear:both;}
+header .ui.action {margin-left: 240px;}
+header ul.util {float: right; margin-right: 40px;}
+header ul.util > li {display: inline-block; margin-right: 20px; vertical-align: middle;}
+header ul.util > li:last-child {margin-right: 0;}
+nav {position:fixed; top: 0; left: 0; height: 100%; overflow-y: auto; background:#222; z-index: 99;}
+nav ul.navList {padding: 15px 0;}
+nav ul.navList > li {width: 200px; padding: 5px 20px; border-bottom:1px solid #333;}
+nav ul.navList > li > a {display: block; font-size: 15px; font-weight: 500; color: #fff;}
+nav ul.navList .twoDep ul li {padding: 3px 0;}
+nav ul.navList .twoDep ul li a {display: block; font-size: 13px; color: #888;}
+
+#container {margin:40px; padding-left:200px;}
+h2 {margin-bottom: 20px; color: #333;}
+h2 span {margin-left: 10px; color: #86a0aa;}
+#container > .content {min-height: 800px; padding: 20px; border-radius: 5px; border: 1px solid #d7d7d7; background: #fff;}
+.dashboard {padding: 0; border: none !important; background: none !important;}
+.option-content {padding-bottom: 20px;}
+.option-content:after {content:''; display:block; clear:both;}
+.option-content .head-txt {font-size: 18px; font-weight: 500; color: #333; vertical-align: middle;}
+.option-content .head-txt-sm {font-weight: 500; color: #333; line-height: 36px; vertical-align: middle;}
+.option-content .totalNum {display:inline-block; margin-right:20px; font-size:18px; color:#333; vertical-align:middle;}
+.option-content .button-area {float: right;}
+.option-content .button-area span.user {margin-right: 5px; font-size: 14px;}
+.option-content .search-box {}
+.option-content .inline-box {display: inline-block;}
+.option-content .inline-box .field {display: inline-block;}
+.option-content .list-num { width: 50px; min-width:60px !important; margin-left: 10px;}
+.bottom-content {margin-top: 20px; text-align: right;}
+
+.process-bar {height:28px !important; line-height:28px !important; border-radius:2px; overflow:hidden; background: #ccc;}
+.process-bar li {float:left; font-size:12px; color:#fff; text-align:center;}
+.process-bar li a {display: block; color:#fff;}
+.bar-grey {background: #595959;}
+.bar-blue {background: #006ba4;}
+.bar-orange {background: #ff800e;}
+
+footer {width: 100%; padding:20px 0 20px 70px; border-top: 1px solid #d7d7d7;}
+footer:after {display:block; clear:both; content:''}
+footer .foot-link {background:#d5e0e6;}
+footer .foot-link ul {}
+footer .foot-link ul li {display:inline-block; padding:10px; color:#cad2db;}
+footer .foot-link ul li a {color:#667a93;}
+footer .foot-link ul li a:hover {color:#3d526b;}
+footer .foot-link ul li:first-child a:before {display:none;}
+footer .foot-link ul li a:before {content:""; display:inline-block; vertical-align: middle; width:1px; height:11px; margin:0 20px 0 0; background:#97a6b7;}
+footer .inner-wrap {position:relative;}
+footer .inner-wrap:after {display:block; clear:both; content:''}
+footer .inner-wrap ul.sub-util {}
+footer .inner-wrap ul.sub-util li {display:inline-block; padding:10px; font-size:12px;}
+footer .inner-wrap ul.sub-util li a {}
+footer .inner-wrap ul.sub-util li a:hover {color:#333;}
+footer .inner-wrap ul.sub-util li:first-child a:before {display:none;}
+footer .inner-wrap ul.sub-util li a:before {content:""; display:inline-block; vertical-align: middle; width:1px; height:11px; margin:0 20px 0 0; background:#97a6b7;}
+footer .inner-wrap .logo-b {clear:both; float:left; width:142px; height:46px; margin-top:15px; margin-right:-160px; text-indent:-9999px; background:url(../img/logo_b.png); background-size:cover;}
+footer .inner-wrap ul.copy {text-align: center;}
+footer .inner-wrap ul.copy li {padding:2px 0; font-size:13px; color:#acacac;}
+footer .inner-wrap ul.copy li address {font-style:normal;}
+footer .inner-wrap .expand-link {position:absolute; top:8px; right:0; z-index:auto;}
+footer .inner-wrap .expand-link .chosen-drop {margin-bottom:-11px; border-bottom:0; border-top:1px solid #aaa; top:auto; bottom:40px;}
+footer .inner-wrap .expand-link .chosen-single {color:#ccc !important; background:none;}
+
+
+
+/* TOP SCROLL 요소 */
+#toTop {display:none; position:fixed; right:10px; bottom:10px; width:40px; height:40px; font-size:0; text-indent:-1000px; text-align:center; color:#fff; background:url('../img/toTop.png') center center no-repeat #777; opacity:0.8; border-radius:20px; z-index:1001;}
+#toTop:hover, #toTop:focus, #toTop.hover {background-color:#CD8F47;}
+
+#pageSliderDescription {position:absolute; left:-999em; display:inline-block; width:0; height:0;}
+
+/* 검색 및 준비중인 페이지 CSS */
+.page_none {width:740px; margin:200px auto; border:5px solid #e3e4e9; background:#f3f3f3 url(../img/page_none.png) 10% 50% no-repeat; background-size:20%; overflow:hidden;}
+.page_none ul {float:right; width:500px; padding-bottom:20px;}
+.page_none ul li {padding:5px 8px; background:url(../img/icon_dot.gif) left 14px no-repeat;}
+.page_none ul li:first-child {padding:20px 0; font-size:24px; font-weight:500; background:none;}
+.page_none ul li span {color:#ff540e;}
+.page_none a {display:block; width:100px; margin:0 auto; margin-bottom:20px; padding:5px 10px; font-size:15px; text-align:center; color:#fff; background:#7684a0;}
+
+
+@media all and (max-width:1217px){
+    body {font-size: 13px;}
+    header .ui.action {margin-left: 40px;}
+    #container {padding-left: 0;}
+    nav {display: none;}
+    .option-content > .ui.dropdown,
+    .option-content .ui.input,
+    .option-content .ui.buttons,
+    .option-content > .ui.button,
+    .button-area > .ui.button,
+    .half-box {margin: 2px 0;}
+}
+
+@media all and (max-width:768px){
+
+}
+
+@media all and (max-width:767px){
+    body {font-size: 12px;}
+
+}
+
+@media all and (max-width:480px){
+
+}

@@ -1,0 +1,362 @@
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Script-Type" content="text/javascript" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta name="author" content="메디오피아테크" />
+<meta name="description" content="메디오피아 LMS6.3입니다." />
+<meta name="keywords" content="기업LMS, 학교LMS, 온라인컨텐츠개발, LINC관련 사업개발" />
+<title>각 페이지의 타이틀을 변수를 이용하여 불러와야 함</title>
+
+<link rel="shortcut icon" href="/static/img/favicon.ico" />
+<!-- Stylesheets -->
+<link rel="stylesheet" type="text/css" href="/static/css/reset.css" />
+<link rel="stylesheet" type="text/css" href="/static/css/element-ui.css" />
+<link rel="stylesheet" type="text/css" href="/static/css/footable.standalone.css" />
+<link rel="stylesheet" type="text/css" href="/static/css/mastery-default.css" />
+<link rel="stylesheet" type="text/css" href="/static/css/semantic.css" />
+
+<!-- Scripts -->
+<script type="text/javascript" src="/static/js/jquery.min.js"></script>
+<script type="text/javascript" src="/static/js/jquery-ui.min.js"></script>
+<script type="text/javascript" src="/static/js/common.js"></script>
+<script type="text/javascript" src="/static/js/semantic.min.js"></script>
+<script type="text/javascript" src="/static/js/footable.min.js"></script>
+<script type="text/javascript" src="/static/js/jquery.ui.touch-punch.min.js"></script>
+<script type="text/javascript" src="/static/js/iframe.js"></script>
+<script type="text/javascript" src="/static/js/modal.js"></script>
+<script type="text/javascript" src="/static/js/jquery.tubular.1.0.js"></script>
+<script type="text/javascript" src="/static/js/chart.min.js"></script>
+<script type="text/javascript" src="/static/js/Chart.PieceLabel.min.js"></script>
+<script type="text/javascript" src="/static/js/jquery.dynamiclist.js"></script>
+
+<script src="/socket.io/socket.io.js"></script>
+  <script>
+  	//document.domain = "localhost.ac.kr";
+  	var etestInfoId = "<%=etestInfoId%>";
+  	var userId = "<%=userId%>";
+  	var questionNo = "<%=questionNo%>";
+  	var userType = "<%=userType%>";
+  	var etestType = "<%=etestType%>";
+  	var etestQuestionId = "<%=etestQuestionId%>";
+  	var etestAnswerId = "<%=etestAnswerId%>";
+  	var questionCount = "<%=questionCount%>";
+  	var correctAnswer = "<%=correctAnswer%>";
+  	var correctDesc = "<%-correctDesc%>";
+  	var chat = io('http://210.101.173.146:3000/etest'),
+  		news = io('/news');
+  		
+  	//var chat = io('http://203.230.137.71:3000/etest'),
+  	//	news = io('/news');
+  	
+  	var enterUserId = "";
+  	var enterCnt = 0;
+  	var submitCnt = "<%=submitCnt%>";
+  	
+  		
+  	
+  	/*- 이벤트를 쏠때 object를 함께 보낼 수 있다. object는 2개 이상도 전달 가능하다.
+    *- 이벤트를 받을때는 socket.on('이벤트 이름', 오브젝트)
+    *- 이벤트를 쏠때는 io.emit('이벤트 이름', 오브젝트)
+    *- 이벤트를 한명한테만 쏠때는 io.to('받는 사람 소켓 아이디').emit('이벤트 이름', 오브젝트)
+    *- 이 강의에는 없지만 이벤트를 보낸사람(socket의 주인)을 제외하고 나머지 모든 사람에게 이벤트를 보낼때는 socket.broadcast.emit('이벤트 이름', 오브젝트)하면 된다.
+	*/
+    $(function() {
+    	// 서버로 자신의 정보를 전송한다.
+       chat.emit("next event", {
+         userId: userId,
+         etestInfoId: etestInfoId,
+         etestQuestionId: etestQuestionId,
+         room: etestInfoId,
+         questionNo: Number(questionNo),
+         userType: userType,
+         msg: 'join'
+       });
+
+      // 서버로부터의 메시지가 수신되면
+      chat.on("next event", function(data) {
+      	if(data.msg == 'nextQuestion'){ //다음 문항
+      		var url = "/?userType="+userType+"&userId="+userId+"&etestInfoId="+data.etestInfoId+"&questionNo="+data.questionNo;
+        	location.href = url;
+       	}else if(data.msg == 'prevQuestion'){ //이전 문항
+      		var url = "/?userType="+userType+"&userId="+userId+"&etestInfoId="+data.etestInfoId+"&questionNo="+data.questionNo;
+        	location.href = url;
+        }else if(data.msg == 'join'){ //시험 참여
+        	//if(enterUserId.indexOf(data.userId) == -1 && data.userType == 'learner' && userType == 'professor'){
+        	
+        	if((data.userType == 'learner' && userType == 'professor') || (data.userType == 'professor' && userType == 'professor')){
+	        	/*if(enterUserId == ""){
+	        		enterUserId += data.userId;
+	        	}else{
+	        		enterUserId += ","+data.userId;
+	        	}
+	        	
+	        	enterCnt = enterUserId.split(",");*/
+	        	//$("#enterCnt").html(enterCnt.length);
+	        	$("#enterCnt").html(data.accessNum);
+	        	$("#submitCnt").html(submitCnt);
+	        }
+	        
+        }else if(data.msg == 'answerSubmit'){ //학습자 정답 제출
+        	// 제출한 학습자 화면만 변경 되도록 처리함. 
+        	if(userId == data.userId){
+	        	var url = "/?userType="+userType+"&userId="+userId+"&etestInfoId="+data.etestInfoId+"&questionNo="+data.questionNo;
+	        	location.href = url;
+	        }
+	        
+	        if((data.userType == 'learner' && userType == 'professor')){
+	        	submitCnt++;
+	        	$("#submitCnt").html(submitCnt);
+	        }else if(data.userType == 'professor' && userType == 'professor'){
+	        	$("#submitCnt").html(submitCnt);
+	        }
+        }else if(data.msg == 'showAnswer'){ //답안보여주기
+        	var correctAnswer = data.correctAnswer;
+        	var correctDesc = data.correctDesc;
+        	if(data.questionType == 'choice'){
+        		if(etestType == 'quize'){
+	        		var answerArr = data.correctAnswer.split('|');
+	        		for(var i=0;i<answerArr.length;i++){
+	        			var tagName = "example"+answerArr[i];        			
+	        			var base = $("[name='"+tagName+"']");
+	        			base.addClass('correct');
+	        		}
+	        	}
+        		
+        		if(userType == 'professor'){
+        			for(var j=1;j<=data.exampleCnt;j++){
+        				var tagName1 = "persent"+j;        			
+	        			var base1 = $("[name='"+tagName1+"']");
+	        			var exampleCnt = 0;
+	        			var exampleRatio = 0.00;
+	        			if(data.enterCnt > 0){
+		        			if(j == 1){
+		        				exampleCnt = data.example1Cnt;
+		        				exampleRatio = (data.example1Cnt/data.enterCnt) * 100;
+		        			}else if(j == 2){
+		        				exampleCnt = data.example2Cnt;
+		        				exampleRatio = (data.example2Cnt/data.enterCnt) * 100;
+		        			}else if(j == 3){
+		        				exampleCnt = data.example3Cnt;
+		        				exampleRatio = (data.example3Cnt/data.enterCnt) * 100;
+		        			}else if(j == 4){
+		        				exampleCnt = data.example4Cnt;
+		        				exampleRatio = (data.example4Cnt/data.enterCnt) * 100;
+		        			}else if(j == 5){
+		        				exampleCnt = data.example5Cnt;
+		        				exampleRatio = (data.example5Cnt/data.enterCnt) * 100;
+		        			}else if(j == 6){
+		        				exampleCnt = data.example6Cnt;
+		        				exampleRatio = (data.example6Cnt/data.enterCnt) * 100;
+		        			}else if(j == 7){
+		        				exampleCnt = data.example7Cnt;
+		        				exampleRatio = (data.example7Cnt/data.enterCnt) * 100;
+		        			}else if(j == 8){
+		        				exampleCnt = data.example8Cnt;
+		        				exampleRatio = (data.example8Cnt/data.enterCnt) * 100;
+		        			}else if(j == 9){
+		        				exampleCnt = data.example9Cnt;
+		        				exampleRatio = (data.example9Cnt/data.enterCnt) * 100;
+		        			}else if(j == 10){
+		        				exampleCnt = data.example10Cnt;
+		        				exampleRatio = (data.example10Cnt/data.enterCnt) * 100;
+		        			}
+		        		}
+	        			base1.html("<b class='mr5'>"+exampleCnt+"명</b>("+exampleRatio.toFixed(2)+"%)");
+        			}
+        		}
+        	}else if(data.questionType == 'ox'){
+        		if(etestType == 'quize'){
+	        		$('input:radio[name="imgChk"]').each(function() {
+					     if(this.value == data.correctAnswer){ //값 비교
+					            this.checked = true; //checked 처리
+					            if(this.value == 1){
+					            	$("[name='imgChk_true_label']").addClass('correct');
+					            }else if(this.value == 2){
+					            	$("[name='imgChk_false_label']").addClass('correct');
+					            }
+					      }
+					 });
+				}
+				 
+				 if(userType == 'professor'){
+				 	if(data.enterCnt > 0){
+				 		var exampleCnt = 0;
+	        			var exampleRatio = 0.00;
+	        			exampleCnt = data.exampleOCnt;
+		        		exampleRatio = (data.exampleOCnt/data.enterCnt) * 100;
+				 		$("[name='imgChk_true_label']").html("<span class='persent'><b class='mr5'>"+exampleCnt+"명</b>("+exampleRatio.toFixed(2)+"%)</span>");
+				 		exampleCnt = data.exampleXCnt;
+		        		exampleRatio = (data.exampleXCnt/data.enterCnt) * 100;
+				 		$("[name='imgChk_false_label']").html("<span class='persent'><b class='mr5'>"+exampleCnt+"명</b>("+exampleRatio.toFixed(2)+"%)</span>");
+				 	}
+				 }
+        	}else if(data.questionType == 'short'){
+        		if(etestType == 'quize'){
+	        		var correctAnswer = data.correctAnswer;
+	        		var answerArr = data.correctAnswer.split('|');
+	        		var answerHtml = "";
+	        		for(var i=0;i<answerArr.length;i++){
+	        			answerHtml += "<div class='field' style='margin-top:10px;'>";
+		        		answerHtml += "		<label>정답</label>";
+		        		answerHtml += "		<div class='ui info message'>";
+		        		answerHtml += answerArr[i];
+		        		answerHtml += "		</div>";
+		        		answerHtml += "	  </div>";
+	        		}
+	        	}
+        		var exampleCnt = 0;
+	        	var exampleRatio = 0.00;
+        		$("[name='answerDiv']").html(answerHtml);
+        		if(userType == 'professor'){
+        			var shortAnswerArr = data.shortAnswer.split('|');
+        			var shortAnswerHtml = "";
+        			for(var j=0;j<shortAnswerArr.length;j++){
+        				if(shortAnswerArr[j] != "NO"){
+		        			shortAnswerHtml += "<a class='ui pointing red basic label'>";
+			        		shortAnswerHtml += shortAnswerArr[j];
+			        		shortAnswerHtml += "</a>";
+			        	}
+	        		}
+        			
+        			$("[name='learnerAnswer']").html(shortAnswerHtml);
+        		}
+        	}
+        	
+        	if(etestType == 'quize'){
+	        	var answerDescHtml = "";
+			    answerDescHtml += "<div class='field' style='margin-top:10px;'>";
+	    		answerDescHtml += "		<label>정답 해설</label>";
+	    		answerDescHtml += "			<div class='ui info message'>";
+	    		answerDescHtml += correctDesc;
+	    		answerDescHtml += "			</div>";
+	    		answerDescHtml += "</div>";
+	        	
+	        	$("[name='answerDescDiv']").html(answerDescHtml);
+	        }
+        		
+        }else if(data.msg == 'discon'){ //종료
+        	var url = data.serverUrl + "/O2oEtest.do?cmd=viewEtestFinish&userId="+userId+"&userType="+userType+"&o2oEtestInfoDTO.etestInfoId="+data.etestInfoId+"&questionNo="+data.questionNo;
+        	location.href = url;
+        }
+        
+        
+      });
+    	
+    });
+    
+    //다음문항
+    function nextQuestion(){
+    	// 서버로 자신의 정보를 전송한다.
+       chat.emit("next event", {
+         userId: userId,
+         etestInfoId: etestInfoId,
+         room: etestInfoId,
+         questionNo: Number(questionNo)+1,
+         userType: userType,
+         msg: 'nextQuestion'
+       });
+    }
+    
+    //이전문항
+    function prevQuestion(){
+    	// 서버로 자신의 정보를 전송한다.
+       chat.emit("next event", {
+         userId: userId,
+         etestInfoId: etestInfoId,
+         room: etestInfoId,
+         questionNo: Number(questionNo)-1,
+         userType: userType,
+         msg: 'prevQuestion'
+       });
+    }
+    
+    // 정답 제출
+    function answerSubmit(pQuestionType){
+    	var userAnswer = "";
+    	
+    	if(pQuestionType == 'ox'){
+	    	if($('[name="imgChk"]')[1].checked){
+		    	userAnswer = $('[name="imgChk"]')[1].value; //X
+		    }else if($('[name="imgChk"]')[0].checked){
+		    	userAnswer = $('[name="imgChk"]')[0].value; //O
+		    }else{
+		    	alert("정답을 선택해 주세요.");
+		    	return;
+		    }
+		}else if(pQuestionType == 'choice'){
+			var answerCheck = $('[name="CheckAnswer"]');
+			// 라디오버튼 체크
+			for(var i=0;i < answerCheck.length;i++){
+			    if(answerCheck[i].checked){
+			    	userAnswer = answerCheck[i].value; 
+			    }
+			}
+			
+			if(userAnswer == ""){
+				alert("정답을 선택해 주세요.");
+		    	return;
+			}
+		}else if(pQuestionType == 'short'){
+		
+			if($('[name="userAnswer"]').val() == '' || $('[name="userAnswer"]').val() == undefined){
+				alert("정답을 입력해 주세요.");
+				return;
+			}else{
+				userAnswer = $('[name="userAnswer"]').val();
+			}
+		}
+    	
+    	var testStatus = "";
+    	if(questionCount == questionNo){
+    		testStatus = "complete";
+    	}
+    	// 서버로 자신의 정보를 전송한다.
+       chat.emit("next event", {
+         userId: userId,
+         etestInfoId: etestInfoId,
+         etestQuestionId: etestQuestionId,
+         etestAnswerId: etestAnswerId,
+         userAnswer: userAnswer,
+         room: etestInfoId,
+         questionNo: Number(questionNo),
+         userType: userType,
+         testStatus: testStatus,
+         msg: 'answerSubmit'
+       });
+    }
+    
+    // 답안 보여주기
+    function showAnswer(pQuestionType){
+    	// 서버로 자신의 정보를 전송한다.
+       chat.emit("next event", {
+       	 userId: userId,
+         etestInfoId: etestInfoId,
+         etestQuestionId: etestQuestionId,
+         correctAnswer: correctAnswer,
+         correctDesc: correctDesc,
+         questionType: pQuestionType,
+         userType: userType,
+         room: etestInfoId,
+         msg: 'showAnswer'
+       });
+       
+    }
+    
+    // 교수자 종료 버튼
+    function pumpingFinish(){
+    	// 서버로 자신의 정보를 전송한다.
+       chat.emit("next event", {
+       	 userId: userId,
+         etestInfoId: etestInfoId,
+         correctAnswer: correctAnswer,
+         questionNo: Number(questionNo),
+         room: etestInfoId,
+         msg: 'discon'
+       });
+    }
+    
+    window.history.forward();
+	function noBack(){window.history.forward();}
+</script>

@@ -1,0 +1,71 @@
+	<div id="loading_page">
+        <p><i class="notched circle loading icon"></i></p>
+    </div>
+    <div id="wrap">
+        <div id="container">
+            <div class="option-content">
+                <h2 class="hmap"><%=etestName%></h2>
+                <div class="button-area tc">
+                <% if(userType == 'learner'){ %>
+	                <a href="javascript:answerSubmit('short');" class="ui yellow large button"><i class="checkmark icon"></i>제출</a>
+	            <% }else if(userType == 'professor'){ %>
+	            	<a href="javascript:pumpingFinish();" class="ui yellow large button"><i class="checkmark icon"></i>종료</a>
+	            <% } %>
+	           	</div>
+            </div>
+            <div class="ui horizontal divider item-num"><%=questionNo%>/<%=questionCount%></div>
+            <% if(userType == 'professor'){ %>
+	            <div class="ui form">
+	                <div class="inline fields">
+	                    <div class="field">
+	                        <label class="mr10">총 참가자:</label><span id="enterCnt" value="1">0</span>명
+	                    </div>
+	                    <div class="field">
+	                        <label class="mr10">총 제출자:</label><span id="submitCnt" value="1">0</span>명
+	                    </div>
+	                    <div class="field">
+	                        <label class="mr10">총 수강생:</label><%=learnerCnt%>명
+	                    </div>
+	                    <div class="field">
+	                        <a href="javascript:showAnswer('short');" class="ui red button">결과보기</a>
+	                    </div>
+	                </div>
+	            </div>
+	        <% } %>
+            <div class="ui form">
+                <% if(fileFullPath1 != ""){ %>
+            		<img class="ui centered big image" src="<%=fileFullPath1%>" />
+            	<% } %>
+            	<% if(fileFullPath2 != ""){ %>
+            		<img class="ui centered big image" src="<%=fileFullPath2%>" />
+            	<% } %>
+            	<% if(fileFullPath3 != ""){ %>
+            		<img class="ui centered big image" src="<%=fileFullPath3%>" />
+            	<% } %>
+                <div class="ui attached message">
+                    <div class="header"><%=questionContents%></div>
+                </div>
+                <div class="ui bottom attached segment">
+                    <input type="text" name="userAnswer" />
+                    <span name="learnerAnswer"></span>
+                </div>
+                
+                <div name="answerDiv">
+	                
+	            </div>
+	            
+	            <div name="answerDescDiv">
+	            </div>
+            </div>
+            <% if(userType == 'professor'){ %>
+	        	<div class="wrap_btn">
+		        <% if(questionNo > 1){ %>
+	            	<a href="javascript:prevQuestion('<%=questionNo %>');" class="ui basic button fl"><i class="long arrow left icon"></i>이전문항</a>
+	            <% } %>
+	            <% if(questionNo < questionCount){ %>
+	            	<a href="javascript:nextQuestion('<%=questionNo %>');" class="ui basic button fr">다음문항<i class="long arrow right icon"></i></a>
+	            <% } %>
+	            </div>
+	        <% } %>
+        </div>
+    </div>

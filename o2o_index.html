@@ -1,0 +1,99 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Script-Type" content="text/javascript" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta name="author" content="메디오피아테크" />
+<meta name="description" content="메디오피아 LMS6.3입니다." />
+<meta name="keywords" content="기업LMS, 학교LMS, 온라인컨텐츠개발, LINC관련 사업개발" />
+<title>각 페이지의 타이틀을 변수를 이용하여 불러와야 함</title>
+
+<link rel="shortcut icon" href="img/favicon.ico" />
+<!-- Stylesheets -->
+<link rel="stylesheet" type="text/css" href="/static/css/reset.css" />
+<link rel="stylesheet" type="text/css" href="/static/css/element-ui.css" />
+<link rel="stylesheet" type="text/css" href="/static/css/footable.standalone.css" />
+<link rel="stylesheet" type="text/css" href="/static/css/mastery-default.css" />
+<link rel="stylesheet" type="text/css" href="/static/css/semantic.css" />
+
+<!-- Scripts -->
+<script type="text/javascript" src="/static/js/jquery.min.js"></script>
+<script type="text/javascript" src="/static/js/jquery-ui.min.js"></script>
+<script type="text/javascript" src="/static/js/common.js"></script>
+<script type="text/javascript" src="/static/js/semantic.min.js"></script>
+<script type="text/javascript" src="/static/js/footable.min.js"></script>
+<script type="text/javascript" src="/static/js/jquery.ui.touch-punch.min.js"></script>
+<script type="text/javascript" src="/static/js/iframe.js"></script>
+<script type="text/javascript" src="/static/js/modal.js"></script>
+<script type="text/javascript" src="/static/js/jquery.tubular.1.0.js"></script>
+<script type="text/javascript" src="/static/js/chart.min.js"></script>
+<script type="text/javascript" src="/static/js/Chart.PieceLabel.min.js"></script>
+<script type="text/javascript" src="/static/js/jquery.dynamiclist.js"></script>
+</head>
+<body>
+    <div id="loading_page">
+        <p><i class="notched circle loading icon"></i></p>
+    </div>
+    <div id="wrap">
+        <div id="container">
+            <div class="option-content">
+                <h2 class="hmap">세상에서 가장 알기쉬운 문학퀴즈</h2>
+                <div class="button-area tc">
+                    <a href="#" class="ui yellow large button"><i class="checkmark icon"></i>퀴즈 제출</a>
+                </div>
+            </div>
+            <div class="ui horizontal divider item-num">1/5</div>
+            <div class="ui form">
+                <div class="inline fields">
+                    <div class="field">
+                        <label class="mr10">총 참가자</label>10/20명
+                    </div>
+                    <div class="field">
+                        <a href="#0" class="ui red button">답안 보여주기</a>
+                    </div>
+                </div>
+            </div>
+            
+                <div class="ui attached message">
+                    <div class="header">문학이 현대사회에서 미치는 영향을 고르시오.</div>
+                </div>
+                <div class="ui bottom attached segment">
+                    <div class="field">
+                        <div class="ui checkbox">
+                            <input type="checkbox" name="01" tabindex="0" class="hidden">
+                            <label class="question num01">21세기의 문학도들이 보다 쉽게 문학에 다가설 수 있도록 하였다.</label>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="ui checkbox">
+                            <input type="checkbox" name="01" tabindex="0" class="hidden">
+                            <label class="question num02">한 사회의 거울이며 현실의 반영물인 문학에 대한 논의가 가능해질 것이다.</label>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="ui checkbox">
+                            <input type="checkbox" name="01" tabindex="0" class="hidden">
+                            <label class="question num03">한국 문학의 영역과 갈래가 확연히 구분되었다.</label>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="ui checkbox">
+                            <input type="checkbox" name="01" tabindex="0" class="hidden">
+                            <label class="question num04">문학의 개념이 개인주의에서 사회주의로 바뀌었다.</label>
+                        </div>
+                    </div>
+                </div>
+
+            
+            <div class="wrap_btn">
+                <a class="ui basic button fl"><i class="long arrow left icon"></i>이전문항</a>
+                <a class="ui basic button fr">다음문항<i class="long arrow right icon"></i></a>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

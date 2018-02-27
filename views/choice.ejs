@@ -1,0 +1,178 @@
+	<div id="loading_page">
+        <p><i class="notched circle loading icon"></i></p>
+    </div>
+    <div id="wrap">
+        <div id="container">
+            <div class="option-content">
+                <h2 class="hmap"><%=etestName%></h2>
+                <div class="button-area tc">
+                <% if(userType == 'learner'){ %>
+	                <a href="javascript:answerSubmit('choice');" class="ui yellow large button"><i class="checkmark icon"></i>제출</a>
+	            <% }else if(userType == 'professor'){ %>
+	            	<a href="javascript:pumpingFinish();" class="ui yellow large button"><i class="checkmark icon"></i>종료</a>
+	            <% } %>
+	           	</div>
+            </div>
+            <div class="ui horizontal divider item-num"><%=questionNo%>/<%=questionCount%></div>
+            <% if(userType == 'professor'){ %>
+	            <div class="ui form">
+	                <div class="inline fields">
+	                    <div class="field">
+	                        <label class="mr10">총 참가자:</label><span id="enterCnt" value="1">0</span>명
+	                    </div>
+	                    <div class="field">
+	                        <label class="mr10">총 제출자:</label><span id="submitCnt" value="1">0</span>명
+	                    </div>
+	                    <div class="field">
+	                        <label class="mr10">총 수강생:</label><%=learnerCnt%>명
+	                    </div>
+	                    <div class="field">
+	                        <a href="javascript:showAnswer('choice');" class="ui red button">결과보기</a>
+	                    </div>
+	                </div>
+	            </div>
+	        <% } %>
+            <div class="ui form">
+            	<% if(fileFullPath1 != ""){ %>
+            		<img class="ui centered big image" src="<%=fileFullPath1%>" />
+            	<% } %>
+            	<% if(fileFullPath2 != ""){ %>
+            		<img class="ui centered big image" src="<%=fileFullPath2%>" />
+            	<% } %>
+            	<% if(fileFullPath3 != ""){ %>
+            		<img class="ui centered big image" src="<%=fileFullPath3%>" />
+            	<% } %>
+                <div class="ui attached message">
+                    <div class="header"><%-questionContents%></div>
+                </div>
+                <div class="ui bottom attached segment">
+                	<%
+	            		if(1 <= exampleCnt){
+	            		
+	            	%>
+	                    <div class="field" name="example1">
+	                        <div class="ui checkbox">
+	                            <input type="radio" name="CheckAnswer" tabindex="0" class="hidden" value="1">
+	                            <label class="question num01"><%-example1%></label>
+	                        </div>
+	                        <span class="persent" name="persent1"></span>
+	                    </div>
+	                <%
+	                	}
+	                	if(2 <= exampleCnt){
+	                %>
+                    <div class="field">
+                        <div class="ui checkbox" name="example2">
+                            <input type="radio" name="CheckAnswer" tabindex="1" class="hidden" value="2">
+                            <label class="question num02" ><%-example2%></label>
+                        </div>
+                        <span class="persent" name="persent2"></span>
+                    </div>
+                     <%
+	                	}
+	                	if(3 <= exampleCnt){
+	                %>
+                    <div class="field">
+                        <div class="ui checkbox" name="example3">
+                            <input type="radio" name="CheckAnswer" tabindex="2" class="hidden" value="3">
+                            <label class="question num03"><%-example3%></label>
+                        </div>
+                        <span class="persent" name="persent3"></span>
+                    </div>
+                    <%
+	                	}
+	                	if(4 <= exampleCnt){
+	                %>
+                    <div class="field">
+                        <div class="ui checkbox" name="example4">
+                            <input type="radio" name="CheckAnswer" tabindex="3" class="hidden" value="4">
+                            <label class="question num04"><%-example4%></label>
+                        </div>
+                        <span class="persent" name="persent4"></span>
+                    </div>
+                    <%
+	                	}
+	                	if(5 <= exampleCnt){
+	                %>
+                    <div class="field">
+                        <div class="ui checkbox" name="example5">
+                            <input type="radio" name="CheckAnswer" tabindex="4" class="hidden" value="5">
+                            <label class="question num05"><%-example5%></label>
+                        </div>
+                        <span class="persent" name="persent5"></span>
+                    </div>
+                    <%
+	                	}
+	                	if(6 <= exampleCnt){
+	                %>
+                    <div class="field">
+                        <div class="ui checkbox" name="example6">
+                            <input type="radio" name="CheckAnswer" tabindex="5" class="hidden" value="6">
+                            <label class="question num06"><%-example6%></label>
+                        </div>
+                        <span class="persent" name="persent6"></span>
+                    </div>
+                    <%
+	                	}
+	                	if(7 <= exampleCnt){
+	                %>
+                    <div class="field">
+                        <div class="ui checkbox" name="example7">
+                            <input type="radio" name="CheckAnswer" tabindex="6" class="hidden" value="7">
+                            <label class="question num07"><%-example7%></label>
+                        </div>
+                        <span class="persent" name="persent7"></span>
+                    </div>
+                    <%
+	                	}
+	                	if(8 <= exampleCnt){
+	                %>
+                    <div class="field">
+                        <div class="ui checkbox" name="example8">
+                            <input type="radio" name="CheckAnswer" tabindex="7" class="hidden" value="8">
+                            <label class="question num08"><%-example8%></label>
+                        </div>
+                        <span class="persent" name="persent8"></span>
+                    </div>
+                    <%
+	                	}
+	                	if(9 <= exampleCnt){
+	                %>
+                    <div class="field">
+                        <div class="ui checkbox" name="example9">
+                            <input type="radio" name="CheckAnswer" tabindex="8" class="hidden" value="9">
+                            <label class="question num09"><%-example9%></label>
+                        </div>
+                        <span class="persent" name="persent9"></span>
+                    </div>
+                    <%
+	                	}
+	                	if(10 <= exampleCnt){
+	                %>
+                    <div class="field">
+                        <div class="ui checkbox" name="example10">
+                            <input type="radio" name="CheckAnswer" tabindex="9" class="hidden" value="10">
+                            <label class="question num10"><%-example10%></label>
+                        </div>
+                        <span class="persent" name="persent10"></span>
+                    </div>
+                    <%
+	                	}
+	                %>
+                </div>
+                <div name="answerDescDiv">
+	            </div>
+
+            </div>
+	        <% if(userType == 'professor'){ %>
+	        	<div class="wrap_btn">
+		        <% if(questionNo > 1){ %>
+	            	<a href="javascript:prevQuestion('<%=questionNo %>');" class="ui basic button fl"><i class="long arrow left icon"></i>이전문항</a>
+	            <% } %>
+	            <% if(questionNo < questionCount){ %>
+	            	<a href="javascript:nextQuestion('<%=questionNo %>');" class="ui basic button fr">다음문항<i class="long arrow right icon"></i></a>
+	            <% } %>
+	            </div>
+	        <% } %>
+        </div>
+    </div>
