@@ -99,8 +99,8 @@ var logger = new (winston.Logger)({
 
 
 // 서버 기동 시 실행
-server.listen(80, function() {
-  console.log('Socket IO server listening on port 80');
+server.listen(8001, function() {
+  console.log('Socket IO server listening on port 8001');
   logger.info('재기동됨');
   this.setTimeout(1000 * 60 * 120); // 2 hours
 });
